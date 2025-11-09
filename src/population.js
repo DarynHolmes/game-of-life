@@ -1,34 +1,29 @@
 
-function getNeighborCount(cells, rowIndex, cellIndex) {
-    const row = cells[rowIndex]
-    const topLeft = rowIndex === 0 || cellIndex === 0 ? 0 : cells[rowIndex - 1][cellIndex - 1] 
-    const topCenter = rowIndex === 0 ? 0 : cells[rowIndex - 1][cellIndex]
-    const topRight = rowIndex === 0 || cellIndex === row.length - 1 ? 0 : cells[rowIndex - 1][cellIndex + 1]
+const  getCellValue = (population, row, col) =>  population[row]?.[col] ?? 0
 
-    const bottomLeft = rowIndex === row.length - 1 || cellIndex === 0 ? 0 : cells[rowIndex + 1][cellIndex - 1]
-    const bottomCenter = rowIndex === row.length - 1 ? 0 : cells[rowIndex + 1][cellIndex]
-    const bottomRight = rowIndex === row.length - 1  || cellIndex === row.length - 1 ? 0 : cells[rowIndex + 1][cellIndex + 1]
+export const nextGen = (population) => Array.from(
+    { length: population.length }, 
+    (_, row) => Array.from({ length: population.length }, 
+      (_, col) => {
+        const leftNeighbor = getCellValue(population, row, col - 1)
+        const rightNeighbor = getCellValue(population, row, col + 1)
+        
+        let topLeftNeighbor = getCellValue(population, row - 1, col - 1)
+        let topCenterNeighbor = getCellValue(population, row - 1, col)
+        let topRightNeighbor = getCellValue(population, row - 1, col + 1)
 
-    const centerLeft = cellIndex === 0 ? 0 : cells[rowIndex][cellIndex - 1]
-    const centerRight =  cellIndex === row.length - 1 ? 0 : cells[rowIndex][cellIndex + 1]
-    
-    return topLeft + topCenter + topRight + bottomLeft + bottomCenter + bottomRight + centerLeft + centerRight
-}
+        let bottomLeftNeighbor = getCellValue(population, row + 1, col - 1)
+        let bottomCenterNeighbor = getCellValue(population, row + 1, col)
+        let bottomRightNeighbor = getCellValue(population, row + 1, col + 1)
 
-export function nextGen(cells) {
-  const newCells = []
-  cells.forEach((row, rowIndex) => {
-    const newRow = []
-    row.forEach((cell, cellIndex) => {
-      if (!cell) {
-        newRow.push(0)
-      } else {
-        const neighborCount = getNeighborCount(cells, rowIndex, cellIndex)
-        const cell = neighborCount === 2 ? 1 : 0
-        newRow.push(cell)
-      }
-    })
-    newCells.push(newRow)
-  })
-  return newCells
-}
+        const neighborCount = leftNeighbor + rightNeighbor + 
+                              topLeftNeighbor + topCenterNeighbor + topRightNeighbor + 
+                              bottomLeftNeighbor + bottomCenterNeighbor + bottomRightNeighbor
+        
+
+        if (population[row][col] === 0) {
+          return neighborCount === 3 ? 1 : 0
+        }  
+                              
+        return (neighborCount === 2 || neighborCount === 3) ? 1 : 0 
+    }))
