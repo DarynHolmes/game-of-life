@@ -1,23 +1,33 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>game-of-life</title>
 
-    <style>
-      #canvas {
-        border: 2px solid teal;
-      }
-    </style>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="./src/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>game-of-life</title>
 
-  </head>
-  <body>
-    <h1>Game of life!!</h1>
+  <style>
+    #canvas {
+      border: 2px solid teal;
+    }
+  </style>
 
-    <canvas id="canvas" width="800" height="800"></canvas>
+</head>
 
-    <script type="module" src="/src/main.js"></script>
-  </body>
+<body>
+  <h1>Game of life!!</h1>
+
+  <canvas id="canvas" width="800" height="800"></canvas>
+
+  <div>
+    <input type="range" min="0" max="99" value="30" class="slider">
+    <button class="run-btn">RUN</button>
+  </div>
+
+
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+
 </html>
