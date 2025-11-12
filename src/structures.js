@@ -30,6 +30,8 @@ export const structures = {
 
 }
 
+//comment
+
 
 export function loadStructure(population, name, rStart, cStart) {
   const structure = structures[name];
@@ -45,5 +47,6 @@ export function loadStructure(population, name, rStart, cStart) {
     for (let col = 0; col < structure[row].length; col++) {
       population[rStart + row][cStart + col] = structure[row][col];
     }
+ 
   }
 }
